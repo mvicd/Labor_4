@@ -52,6 +52,13 @@ def stat(data_frame: pd.DataFrame):
             data_frame2 = data_frame[data_frame.tag == class_tag]
             print(data_frame2)
 
+            def filter_dimensions(data_frame: pd.DataFrame, class_tag: int, max_height: int, max_width: int):
+                data_frame2 = pd.DataFrame()
+                data_frame2 = data_frame[
+                    (data_frame.tag == class_tag) & (data_frame.width <= max_width) & (data_frame.height <= max_height)]
+                print(data_frame2)
+                return data_frame2
+
 
 def main():
     """Separates code blocks."""
@@ -66,6 +73,9 @@ def main():
 
     df2 = pd.DataFrame()
     df2 = filter_tag(df, 5)
+
+    df3 = pd.DataFrame()
+    df3 = filter_dimensions(df, 0, 300, 460)
 
 
 
