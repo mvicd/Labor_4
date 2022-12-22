@@ -3,6 +3,9 @@ import os
 import cv2
 import numpy as np
 from statistics import mean
+import matplotlib.pyplot as plt
+import random
+
 
 
 def data_frame(data_frame: pd.DataFrame, directory_obj: str, name: str):
@@ -83,6 +86,46 @@ def stat(data_frame: pd.DataFrame):
                 print(data_frame2)
                 return data_frame2
 
+            def hist(data_frame: pd.DataFrame, class_tag: int):
+                data_frame = data_frame[data_frame.tag == class_tag]
+
+                path_list = []
+
+                for i in data_frame.path:
+                    path_list.append(i)
+
+                random.shuffle(path_list)
+
+                img = cv2.imread(path_list[0])
+                print(path_list[0])
+                hist_b = cv2.calcHist([img], [0], None, [256], [0, 256])
+                hist_g = cv2.calcHist([img], [1], None, [256], [0, 256])
+                hist_r = cv2.calcHist([img], [2], None, [256], [0, 256])
+                return hist_b, hist_g, hist_r
+
+            def output_hist(hist_b: np.ndarray, hist_g: np.ndarray, hist_r: np.ndarray):
+                fig = plt.figure(figsize=(30, 8))
+
+                fig.add_subplot(1, 3, 1)
+                plt.plot(hist_b, color="b")
+                plt.title("Гистограмма изображения для СИНЕГО канала")
+                plt.ylabel("Количество пикселей")
+                plt.xlabel("Значение пикселя")
+
+                fig.add_subplot(1, 3, 2)
+                plt.plot(hist_g, color="g")
+                plt.title("Гистограмма изображения для ЗЕЛЕНОГО канала")
+                plt.ylabel("Количество пикселей")
+                plt.xlabel("Значение пикселя")
+
+                fig.add_subplot(1, 3, 3)
+                plt.plot(hist_r, color="r")
+                plt.title("Гистограмма изображения для КРАСНОГО канала")
+                plt.ylabel("Количество пикселей")
+                plt.xlabel("Значение пикселя")
+
+                plt.show()
+
 
 def main():
     """Separates code blocks."""
@@ -105,7 +148,9 @@ def main():
     df4 = pd.DataFrame()
     df4 = pixel(df, 0)
 
-
+    b, g, r = hist(df, 0)
+    print(type(b))
+    output_hist(b, g, r)
 
 
 if __name__ == "__main__":
