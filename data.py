@@ -47,11 +47,10 @@ def stat(data_frame: pd.DataFrame):
     else:
         print("Набор не является сбалансированным\n"")
 
-        def new_data_frame(data_frame: pd.DataFrame, class_tag: int):
+        def filter_tag(data_frame: pd.DataFrame, class_tag: int):
             data_frame2 = pd.DataFrame()
             data_frame2 = data_frame[data_frame.tag == class_tag]
             print(data_frame2)
-            return data_frame2
 
 
 def main():
@@ -66,7 +65,7 @@ def main():
     stat(df)
 
     df2 = pd.DataFrame()
-    df2 = new_data_frame(df, 5)
+    df2 = filter_tag(df, 5)
 
 
 
