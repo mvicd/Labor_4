@@ -43,10 +43,15 @@ def dimension(data_frame: pd.DataFrame):
 def stat(data_frame: pd.DataFrame):
     print(data_frame.describe())
     if data_frame.tag.mean() == 0.5:
-        print("Набор является сбалансированным")
+        print("Набор является сбалансированным\n")
     else:
-        print("Набор не является сбалансированным")
+        print("Набор не является сбалансированным\n"")
 
+        def new_data_frame(data_frame: pd.DataFrame, class_tag: int):
+            data_frame2 = pd.DataFrame()
+            data_frame2 = data_frame[data_frame.tag == class_tag]
+            print(data_frame2)
+            return data_frame2
 
 
 def main():
@@ -59,6 +64,9 @@ def main():
     df = dimension(df)
 
     stat(df)
+
+    df2 = pd.DataFrame()
+    df2 = new_data_frame(df, 5)
 
 
 
